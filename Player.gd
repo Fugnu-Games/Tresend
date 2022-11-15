@@ -1,0 +1,59 @@
+extends KinematicBody
+
+export var speed := 20.0
+export var jump_strength := 20.0
+export var gravity = 50.0
+export var mouse_sensitivity = 0.1
+
+var velocity = Vector3.ZERO	
+var snap_vector = Vector3.DOWN
+var acceleration = 5
+
+onready var pivot = $CameraPivot
+onready var weapon_pivot = $WeaponPivot
+
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _input(event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		
+	if event is InputEventMouseMotion:
+		rotate_y(deg2rad(-event.relative.x * mouse_sensitivity))
+		pivot.rotate_x(deg2rad(-event.relative.y * mouse_sensitivity))
+		pivot.rotation.x = clamp(pivot.rotation.x, deg2rad(-90), deg2rad(90))
+		
+		weapon_pivot.rotate_x(deg2rad(-event.relative.y * mouse_sensitivity))
+		weapon_pivot.rotation.x = clamp(pivot.rotation.x, deg2rad(-90), deg2rad(90))
+
+func _physics_process(delta):
+	var move_direction := Vector3.ZERO
+	print(transform.basis.z, Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
+	if Input.is_action_pressed("move_back"):
+		move_direction += transform.basis.z
+	elif Input.is_action_pressed("move_foreward"):
+		move_direction -= transform.basis.z
+	if Input.is_action_pressed("move_right"):
+		move_direction += transform.basis.x
+	elif Input.is_action_pressed("move_left"):
+		move_direction -= transform.basis.x
+		
+	move_direction = move_direction.normalized()
+
+	velocity.x = move_direction.x * speed
+	velocity.z = move_direction.z * speed
+	velocity.y -= gravity * delta
+	
+	var just_landed = is_on_floor() and snap_vector == Vector3.ZERO
+	var is_jumping = is_on_floor() and Input.is_action_just_pressed("jump")
+	
+	if is_jumping:
+		velocity.y = jump_strength
+		snap_vector = Vector3.ZERO
+	elif just_landed:
+		snap_vector = Vector3.DOWN
+		
+	velocity.linear_interpolate(velocity, acceleration * delta)
+	velocity = move_and_slide_with_snap(velocity, snap_vector, Vector3.UP, true)
+	
