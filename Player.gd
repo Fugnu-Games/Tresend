@@ -4,11 +4,13 @@ export var speed := 20.0
 export var jump_strength := 20.0
 export var gravity = 50.0
 export var mouse_sensitivity = 0.1
+export var damage := 50
 
 var velocity = Vector3.ZERO	
 var snap_vector = Vector3.DOWN
 var acceleration = 5
 
+onready var current_weapon = "SamuraiSword" 
 onready var pivot = $CameraPivot
 onready var weapon_pivot = $WeaponPivot
 
@@ -29,7 +31,6 @@ func _input(event):
 
 func _physics_process(delta):
 	var move_direction := Vector3.ZERO
-	print(transform.basis.z, Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	if Input.is_action_pressed("move_back"):
 		move_direction += transform.basis.z
 	elif Input.is_action_pressed("move_foreward"):
