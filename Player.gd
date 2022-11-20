@@ -1,11 +1,14 @@
 extends KinematicBody
 
+signal dead 
+
 export var speed := 20.0
 export var jump_strength := 20.0
 export var gravity = 50.0
 export var mouse_sensitivity = 0.1
-export var damage := 50
+export var health := 200
 
+var colliding_enemies = []
 var velocity = Vector3.ZERO	
 var snap_vector = Vector3.DOWN
 var acceleration = 5
@@ -57,4 +60,26 @@ func _physics_process(delta):
 		
 	velocity.linear_interpolate(velocity, acceleration * delta)
 	velocity = move_and_slide_with_snap(velocity, snap_vector, Vector3.UP, true)
-	
+
+	if health <= 0:
+		emit_signal("dead")
+		queue_free()
+
+
+func _on_PlayerHitBox_body_entered(body:Node):
+	if body.is_in_group("enemies") and colliding_enemies.has(body) == false:
+		colliding_enemies.append(body)
+		health -= get_tree().get_root().get_node("Main").get_node(body.name).get("damage")
+		$HitBoxTimer.start()
+
+func _on_PlayerHitBox_body_exited(body:Node):
+	if colliding_enemies.has(body):
+		colliding_enemies.erase(body)
+		$HitBoxTimer.stop()
+
+func _on_HitBoxTimer_timeout():
+	for enemy in colliding_enemies:
+		health -= get_tree().get_root().get_node("Main").get_node(enemy.name).get("damage")
+	print(health)
+
+

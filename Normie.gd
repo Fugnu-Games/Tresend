@@ -2,10 +2,9 @@ extends KinematicBody
 
 export var speed = 15
 export var health = 50
+export var damage = 20
 
 onready var player = get_tree().get_root().get_node("Main").get_node("Player")
-onready var current_weapon = player.get("current_weapon")
-onready var damage = player.get("damage")
 
 var player_position;
 var direction;
@@ -25,7 +24,3 @@ func _physics_process(_delta):
 	if health <= 0:
 		queue_free()
 
-
-func _on_Area_body_entered(body:Node):
-	if body.name == current_weapon:
-		health -= damage

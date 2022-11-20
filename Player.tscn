@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://SamuraiSword.gd" type="Script" id=2]
 
 [sub_resource type="SpatialMaterial" id=4]
 albedo_color = Color( 0.0666667, 0.411765, 0.490196, 1 )
@@ -14,15 +15,18 @@ mid_height = 1.5
 radius = 0.75
 height = 1.5
 
-[sub_resource type="BoxShape" id=5]
-extents = Vector3( 0.1, 0.1, 1.5 )
-
 [sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="CubeMesh" id=7]
 material = SubResource( 6 )
 size = Vector3( 0.2, 0.2, 3 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 0.1, 0.1, 1.5 )
+
+[sub_resource type="CapsuleShape" id=8]
+height = 1.5
 
 [node name="Player" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
@@ -45,15 +49,40 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.763652, 0.639786, -0.595993 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 collision_layer = 8
 collision_mask = 0
-
-[node name="CollisionShape" type="CollisionShape" parent="WeaponPivot/SamuraiSword"]
-shape = SubResource( 5 )
+script = ExtResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="WeaponPivot/SamuraiSword"]
 mesh = SubResource( 7 )
 skeleton = NodePath("../..")
 
+[node name="CollisionShape" type="CollisionShape" parent="WeaponPivot/SamuraiSword"]
+shape = SubResource( 5 )
+
+[node name="SamuraiSwordHitBox" type="Area" parent="WeaponPivot/SamuraiSword"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="WeaponPivot/SamuraiSword/SamuraiSwordHitBox"]
+shape = SubResource( 5 )
+
 [node name="CameraPivot" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
 [node name="Camera" type="Camera" parent="CameraPivot"]
+
+[node name="PlayerHitBox" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="PlayerHitBox"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 8 )
+
+[node name="HitBoxTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_entered" from="WeaponPivot/SamuraiSword/SamuraiSwordHitBox" to="WeaponPivot/SamuraiSword" method="_on_SamuraiSwordHitBox_body_entered"]
+[connection signal="body_entered" from="PlayerHitBox" to="." method="_on_PlayerHitBox_body_entered"]
+[connection signal="body_exited" from="PlayerHitBox" to="." method="_on_PlayerHitBox_body_exited"]
+[connection signal="timeout" from="HitBoxTimer" to="." method="_on_HitBoxTimer_timeout"]
