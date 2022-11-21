@@ -80,6 +80,5 @@ func _on_PlayerHitBox_body_exited(body:Node):
 func _on_HitBoxTimer_timeout():
 	for enemy in colliding_enemies:
 		health -= get_tree().get_root().get_node("Main").get_node(enemy.name).get("damage")
-	print(health)
 
 

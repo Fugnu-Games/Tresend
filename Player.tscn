@@ -26,6 +26,7 @@ size = Vector3( 0.2, 0.2, 3 )
 extents = Vector3( 0.1, 0.1, 1.5 )
 
 [sub_resource type="CapsuleShape" id=8]
+radius = 0.8
 height = 1.5
 
 [node name="Player" type="KinematicBody"]
