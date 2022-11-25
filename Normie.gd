@@ -24,10 +24,11 @@ func _physics_process(_delta):
 	move_and_slide(direction)
 
 	if health <= 0:
-		emit_signal("enemy_dead", self)
-		queue_free()
+		die()
 
 func initialize(start_position, player_pos):
   look_at_from_position(start_position, player_pos, Vector3.UP)
 
-
+func die():
+	emit_signal("enemy_dead", self)
+	queue_free()

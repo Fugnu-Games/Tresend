@@ -2,12 +2,12 @@ extends Node
 
 export (PackedScene) var enemy_scene 
 
-var player_pos
-var enemies = []
+var player_pos;
+var enemies = [];
 
 func _unhandled_input(event):
-    if event.is_action_pressed("ui_accept"):
-        get_tree().reload_current_scene()
+	if event.is_action_pressed("ui_accept"):
+		get_tree().reload_current_scene();
 
 func _on_EnemySpawnTimer_timeout():
 	var enemy = enemy_scene.instance()
@@ -31,6 +31,6 @@ func _on_Player_dead():
 		$EnemySpawnTimer.stop()
 
 func _on_Enemy_Dead(body):
+	$Player.score += 1
 	enemies.erase(body)
-
 

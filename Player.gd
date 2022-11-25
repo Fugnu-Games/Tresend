@@ -6,12 +6,18 @@ export var speed := 20.0
 export var jump_strength := 20.0
 export var gravity = 50.0
 export var mouse_sensitivity = 0.1
-export var health := 200
+export var health := 1
 
-var colliding_enemies = []
-var velocity = Vector3.ZERO	
-var snap_vector = Vector3.DOWN
-var acceleration = 5
+var colliding_enemies = [];
+var enemies;
+
+var score = 10;
+
+var ability_used = false;
+
+var velocity = Vector3.ZERO;
+var snap_vector = Vector3.DOWN;
+var acceleration = 5;
 
 onready var current_weapon = "SamuraiSword" 
 onready var pivot = $CameraPivot
@@ -42,7 +48,10 @@ func _physics_process(delta):
 		move_direction += transform.basis.x
 	elif Input.is_action_pressed("move_left"):
 		move_direction -= transform.basis.x
-		
+
+	if Input.is_action_pressed("use_ability") and not ability_used and can_use_ability():
+		use_ability()
+
 	move_direction = move_direction.normalized()
 
 	velocity.x = move_direction.x * speed
@@ -73,7 +82,6 @@ func _on_PlayerHitBox_body_entered(body:Node):
 		$HitBoxTimer.start()
 
 func _on_PlayerHitBox_body_exited(body:Node):
-	if colliding_enemies.has(body):
 		colliding_enemies.erase(body)
 		$HitBoxTimer.stop()
 
@@ -81,4 +89,19 @@ func _on_HitBoxTimer_timeout():
 	for enemy in colliding_enemies:
 		health -= get_tree().get_root().get_node("Main").get_node(enemy.name).get("damage")
 
+
+func use_ability():
+	ability_used = true;
+	score = 0;
+
+	for enemy in get_parent().enemies:
+		enemy.queue_free()
+	get_parent().enemies = []
+
+func can_use_ability():
+	if score >= 10:
+		return true
+	else:
+		ability_used = false
+		return false
 
