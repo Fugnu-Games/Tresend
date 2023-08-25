@@ -5,6 +5,9 @@ export (PackedScene) var enemy_scene
 var player_pos;
 var enemies = [];
 
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_accept"):
+		get_tree().reload_current_scene();
 
 func _on_EnemySpawnTimer_timeout():
 	var enemy = enemy_scene.instance()
@@ -23,12 +26,15 @@ func _on_EnemySpawnTimer_timeout():
 	enemies.append(enemy)
 
 func _on_Player_dead():
+	# get_tree().paused = true
+	# enemy_scene.queue_free()
 	$EnemySpawnTimer.stop()
 
-	for enemy in enemies:
-		enemy.queue_free()
-		enemies.erase(enemy)
+	# for enemy in enemies:
+	# 	enemy.queue_free()
+	# 	enemies.erase(enemy)
 
+	# get_tree().get_root().get_node("Main").get_node("Player").queue_free()
 
 func _on_Enemy_Dead(body):
 	$Player.score += 1

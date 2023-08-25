@@ -80,8 +80,8 @@ func _on_PlayerHitBox_body_entered(body:Node):
 		$HitBoxTimer.start()
 
 func _on_PlayerHitBox_body_exited(body:Node):
-	colliding_enemies.erase(body)
-	$HitBoxTimer.stop()
+		colliding_enemies.erase(body)
+		$HitBoxTimer.stop()
 
 func _on_HitBoxTimer_timeout():
 	for enemy in colliding_enemies:

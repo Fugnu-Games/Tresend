@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Normie.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Normie.gd" type="Script" id=1]
 
 [sub_resource type="CapsuleShape" id=4]
 radius = 0.9
