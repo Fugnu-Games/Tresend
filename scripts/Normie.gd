@@ -1,15 +1,22 @@
-extends KinematicBody
+extends CharacterBody3D
 
 signal enemy_dead(body)
 
-export var speed = 15
-export var health = 50
-export var damage = 20
+@export var speed = 15
+@export var health = 50
+@export var damage = 20
 
-onready var player = get_tree().get_root().get_node("Main").get_node("Player")
+@onready var player = get_tree().get_root().get_node("Main").get_node("Player")
 
 var player_position;
 var direction;
+
+# func _ready():
+# 	initialize(enemy_spawn_location.position, player_pos)
+# 	enemy.rotation_degrees.x = 90
+# 	enemy.position.y = 1.5
+# 	enemy.connect("enemy_dead", Callable(self, "_on_Enemy_Dead"))
+
 
 func _physics_process(_delta):
 	player_position = player.transform.origin
@@ -21,13 +28,14 @@ func _physics_process(_delta):
 	else: 
 		direction = player_position - transform.origin
 
-	move_and_slide(direction)
+	set_velocity(direction)
+	move_and_slide()
 
 	if health <= 0:
 		die()
 
 func initialize(start_position, player_pos):
-  look_at_from_position(start_position, player_pos, Vector3.UP)
+	look_at_from_position(start_position, player_pos, Vector3.UP)
 
 func die():
 	emit_signal("enemy_dead", self)

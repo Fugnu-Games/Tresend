@@ -9,5 +9,5 @@ func _unhandled_input(event):
 		get_tree().reload_current_scene();
 
 
-func show_restart_msg():
+func _on_player_dead():
 	$Restart.show()

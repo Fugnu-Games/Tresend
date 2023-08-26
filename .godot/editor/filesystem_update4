@@ -1,0 +1,7 @@
+res://scripts/Main.gd
+res://default_env.tres
+res://Main.tscn
+res://Player.tscn
+res://Normie.tscn
+res://scripts/Normie.gd
+res://scripts/Restart.gd
