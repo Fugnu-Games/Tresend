@@ -82,7 +82,7 @@ func _on_PlayerHitBox_body_entered(body:Node):
 	if body.is_in_group("enemies") and colliding_enemies.has(body) == false:
 		colliding_enemies.append(body)
 		# health -= get_tree().get_root().get_node("Main").get_node(body.name).get("damage")
-		health -= get_node("./WeaponPivot/SamuraiSword").get("damage")
+		health -= get_node("./SamuraiSword").get("damage")
 		$HitBoxTimer.start()
 
 func _on_PlayerHitBox_body_exited(body:Node):
