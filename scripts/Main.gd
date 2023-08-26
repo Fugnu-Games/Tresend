@@ -34,12 +34,9 @@ func _on_Enemy_Dead(body):
 
 
 func _on_player_dead():
-	# get_tree().paused = true
-	# enemy_scene.queue_free()
 	$EnemySpawnTimer.stop()
 
 	for enemy in enemies:
 		enemy.queue_free()
 		enemies.erase(enemy)
 
-	# get_tree().get_root().get_node("Main").get_node("Player").queue_free()
