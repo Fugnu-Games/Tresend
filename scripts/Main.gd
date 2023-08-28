@@ -6,6 +6,9 @@ var enemy_scene : PackedScene
 var player_pos;
 var enemies = [];
 
+@onready var platformAnimationPlayer = get_node("Platform/AnimationPlayer")
+@onready var enemySpawnTimer = get_node("WaveTimer/EnemySpawnTimer")
+
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_accept"):
 		get_tree().reload_current_scene();
@@ -31,12 +34,20 @@ func _on_Enemy_Dead(body):
 	$Player.score += 1
 	enemies.erase(body)
 
+	if $Player.score == 10:
+		print_debug("Tresending.....")
+		platformAnimationPlayer.play("move_platform")
+
 
 
 func _on_player_dead():
-	$EnemySpawnTimer.stop()
+	enemySpawnTimer.stop()
 
 	for enemy in enemies:
 		enemy.queue_free()
 		enemies.erase(enemy)
 
+
+
+func _on_wave_timer_timeout():
+	enemySpawnTimer.stop()

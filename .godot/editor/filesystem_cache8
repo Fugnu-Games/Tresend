@@ -1,10 +1,12 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1693066695
-default_env.tres::Environment::598332054619023723::1693062888::0::1::::<><>::
+::res://::1693188051
+default_env.tres::Environment::598332054619023723::1693187968::0::1::::<><>::
 icon.png::CompressedTexture2D::1111848986832765086::1692806021::1693033127::1::::<><>::
-Main.tscn::PackedScene::7069531012254964489::1693043229::0::1::::<><>::uid://i4twyrg4404n
-Normie.tscn::PackedScene::622571901435077635::1693042913::0::1::::<><>::res://scripts/Normie.gd
-Player.tscn::PackedScene::8580756713716512621::1693062888::0::1::::<><>::res://scripts/Player.gd<>res://scripts/SamuraiSword.gd<>res://assets/models/SWORD_prototype.glb
+level1.tscn::PackedScene::1510796419273542904::1693186102::0::1::::<><>::res://scripts/Main.gd<>uid://i4twyrg4404n::::res://Normie.tscn<>uid://duit2rxcu1nbh::::res://Player.tscn<>uid://ce6ljqhajwd3d::::res://Platform.tscn<>res://scripts/Restart.gd<>uid://c3akcqflmmpxk::::res://assets/fonts/FiraCodeNerdFont-Medium.ttf
+Main.tscn::PackedScene::7069531012254964489::1693161994::0::1::::<><>::uid://i4twyrg4404n
+Normie.tscn::PackedScene::622571901435077635::1693069235::0::1::::<><>::res://scripts/Normie.gd
+Platform.tscn::PackedScene::5118277262579889223::1693187968::0::1::::<><>::
+Player.tscn::PackedScene::8580756713716512621::1693160210::0::1::::<><>::res://scripts/Player.gd<>res://scripts/SamuraiSword.gd<>uid://dm50k36s3e8ha
 README.md::TextFile::-1::1692806021::0::1::::<><>::
 ::res://assets/::1693032542
 ::res://assets/fonts/::1693033127
@@ -12,9 +14,9 @@ FiraCodeNerdFont-Medium.ttf::FontFile::6738740579380523156::1692985592::16930331
 ::res://assets/models/::1693061387
 SWORD_prototype.glb::PackedScene::8064996809513887186::1693061383::1693061386::0::::<><>::
 SWORD_prototype_Plane Metallic.png::CompressedTexture2D::8564737958979618408::1693061384::1693061387::1::::<><>::
-::res://scripts/::1693042223
-Main.gd::GDScript::-1::1693043287::0::1::::<>Node<>::
-Normie.gd::GDScript::-1::1693041938::0::1::::<>CharacterBody3D<>::
-Player.gd::GDScript::-1::1693063614::0::1::::<>CharacterBody3D<>::
+::res://scripts/::1693161649
+Main.gd::GDScript::-1::1693184851::0::1::::<>Node<>::
+Normie.gd::GDScript::-1::1693162576::0::1::::<>CharacterBody3D<>::
+Player.gd::GDScript::-1::1693163357::0::1::::<>CharacterBody3D<>::
 Restart.gd::GDScript::-1::1693042223::0::1::::<>Control<>::
 SamuraiSword.gd::GDScript::-1::1693032961::0::1::::<>StaticBody3D<>::

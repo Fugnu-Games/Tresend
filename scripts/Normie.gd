@@ -4,9 +4,9 @@ signal enemy_dead(body)
 
 @export var speed = 10
 @export var health = 50
-@export var damage = 1
+@export var damage = 20
 
-@onready var player = get_tree().get_root().get_node("Main").get_node("Player")
+@onready var player = get_node("../Player")
 
 var player_position;
 var direction;

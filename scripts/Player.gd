@@ -2,18 +2,17 @@ extends CharacterBody3D
 
 signal dead 
 
-@export var speed := 20.0
+@export var speed := 15.0
 @export var jump_strength := 20.0
 @export var gravity = 50.0
 @export var mouse_sensitivity = 0.1
-@export var health := 1
+@export var health := 100
 
 var colliding_enemies = [];
 var enemies;
 
 var score = 0;
 
-# var velocity = Vector3.ZERO;
 var snap_vector = Vector3.DOWN;
 var acceleration = 5;
 
@@ -80,7 +79,7 @@ func _physics_process(delta):
 
 func _on_PlayerHitBox_body_entered(body:Node):
 	if body.is_in_group("enemies") and colliding_enemies.has(body) == false:
-		health -= get_node("/root/Main/" + body.name).get("damage")
+		health -= get_node("../" + body.name).get("damage")
 		colliding_enemies.append(body)
 		$HitBoxTimer.start()
 
@@ -90,7 +89,7 @@ func _on_PlayerHitBox_body_exited(body:Node):
 
 func _on_HitBoxTimer_timeout():
 	for enemy in colliding_enemies:
-		health -= get_node("/root/Main/" + enemy.name).get("damage")
+		health -= get_node("../" + enemy.name).get("damage")
 
 
 func use_ability():

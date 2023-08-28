@@ -1,0 +1,11 @@
+MeshInstance3D
+AnimationPlayer
+RemoteTransform3D
+PathFollow3D
+Path3D
+CharacterBody3D
+Node
+Timer
+CollisionShape3D
+StaticBody3D
+StaticBody2D

@@ -22,13 +22,13 @@ radius = 0.75
 height = 1.5
 
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1")
 
 [node name="SWORD_prototype" parent="." instance=ExtResource("2_yytum")]
-transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0.2, 0, -0.5)
+transform = Transform3D(0.187939, 0.034202, -0.0592396, 0, 0.173205, 0.0999999, 0.068404, -0.0939692, 0.162759, 0.2, 0, -1)
 
 [node name="SamuraiSword" type="StaticBody3D" parent="SWORD_prototype"]
 transform = Transform3D(5, 0, 0, 0, -2.18557e-07, 5, 0, -5, -2.18557e-07, 1, 8, -2.86102e-06)
@@ -71,7 +71,6 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 shape = SubResource("8")
 
 [node name="HitBoxTimer" type="Timer" parent="."]
-wait_time = 0.5
 
 [connection signal="body_entered" from="SWORD_prototype/SamuraiSword/SamuraiSwordHitBox" to="SWORD_prototype/SamuraiSword" method="_on_SamuraiSwordHitBox_body_entered"]
 [connection signal="body_entered" from="PlayerHitBox" to="." method="_on_PlayerHitBox_body_entered"]
