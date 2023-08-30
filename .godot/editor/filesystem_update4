@@ -1,4 +1,2 @@
 res://default_env.tres
-res://Platform.tscn
-res://level1.tscn
-res://Player.tscn
+res://level_1.tscn

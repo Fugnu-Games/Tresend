@@ -1,3 +1,6 @@
+Label
+ColorRect
+Button
 MeshInstance3D
 AnimationPlayer
 RemoteTransform3D

@@ -3,7 +3,7 @@ extends CharacterBody3D
 signal enemy_dead(body)
 
 @export var speed = 10
-@export var health = 50
+@export var health = 30
 @export var damage = 20
 
 @onready var player = get_node("../Player")

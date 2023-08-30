@@ -1,23 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://vr3ujk15rliu"]
+[gd_scene load_steps=15 format=3 uid="uid://bupahh85ehbaa"]
 
-[ext_resource type="Script" path="res://scripts/Main.gd" id="1_dea7x"]
-[ext_resource type="PackedScene" uid="uid://i4twyrg4404n" path="res://Normie.tscn" id="2_v036k"]
-[ext_resource type="PackedScene" uid="uid://duit2rxcu1nbh" path="res://Player.tscn" id="3_k4mkg"]
-[ext_resource type="PackedScene" uid="uid://ce6ljqhajwd3d" path="res://Platform.tscn" id="3_wd14d"]
-[ext_resource type="Script" path="res://scripts/Restart.gd" id="4_g07ck"]
-[ext_resource type="FontFile" uid="uid://c3akcqflmmpxk" path="res://assets/fonts/FiraCodeNerdFont-Medium.ttf" id="5_kdfju"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4fl5u"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-
-[sub_resource type="Sky" id="Sky_iaocm"]
-sky_material = SubResource("ProceduralSkyMaterial_4fl5u")
-
-[sub_resource type="Environment" id="Environment_0n2k1"]
-background_mode = 2
-sky = SubResource("Sky_iaocm")
-tonemap_mode = 2
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_av4r1"]
+[ext_resource type="PackedScene" uid="uid://i4twyrg4404n" path="res://Normie.tscn" id="2_rucxg"]
+[ext_resource type="PackedScene" uid="uid://ce6ljqhajwd3d" path="res://Platform.tscn" id="3_biliw"]
+[ext_resource type="PackedScene" uid="uid://duit2rxcu1nbh" path="res://Player.tscn" id="4_7bjso"]
+[ext_resource type="Script" path="res://scripts/Restart.gd" id="5_ul25v"]
+[ext_resource type="FontFile" uid="uid://c3akcqflmmpxk" path="res://assets/fonts/FiraCodeNerdFont-Medium.ttf" id="6_n3ib4"]
 
 [sub_resource type="Curve3D" id="4"]
 _data = {
@@ -30,7 +18,7 @@ point_count = 5
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
-fallbacks = Array[Font]([ExtResource("5_kdfju")])
+fallbacks = Array[Font]([ExtResource("6_n3ib4")])
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -136,39 +124,32 @@ cache/0/64/0/kerning_overrides/6/0 = Vector2(0, 0)
 cache/0/64/0/kerning_overrides/7/0 = Vector2(0, 0)
 cache/0/64/0/kerning_overrides/64/0 = Vector2(0, 0)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vm5ww"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yu24a"]
 albedo_color = Color(0.247059, 0.247059, 0.247059, 1)
 metallic = 0.4
 
 [sub_resource type="BoxMesh" id="BoxMesh_1gqg8"]
-material = SubResource("StandardMaterial3D_vm5ww")
+material = SubResource("StandardMaterial3D_yu24a")
 size = Vector3(100, 400, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_50mv0"]
 size = Vector3(100, 400, 1)
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4fl5u"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_y08pj"]
+sky_material = SubResource("ProceduralSkyMaterial_4fl5u")
+
+[sub_resource type="Environment" id="Environment_0n2k1"]
+background_mode = 2
+sky = SubResource("Sky_y08pj")
+tonemap_mode = 2
+
 [node name="Level1" type="Node"]
-script = ExtResource("1_dea7x")
-enemy_scene = ExtResource("2_v036k")
-
-[node name="WaveTimer" type="Timer" parent="."]
-wait_time = 21.0
-one_shot = true
-autostart = true
-
-[node name="EnemySpawnTimer" type="Timer" parent="WaveTimer"]
-wait_time = 2.0
-autostart = true
-
-[node name="Platform" parent="." instance=ExtResource("3_wd14d")]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0n2k1")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.276342, -4.20092e-08, 0.961059, -0.961059, -1.20793e-08, 0.276342, 0, -1, -4.37114e-08, 0, 114.503, 0)
-
-[node name="Player" parent="." instance=ExtResource("3_k4mkg")]
+script = ExtResource("1_av4r1")
+enemy_scene = ExtResource("2_rucxg")
 
 [node name="EnemySpawnPath" type="Path3D" parent="."]
 curve = SubResource("4")
@@ -176,22 +157,22 @@ curve = SubResource("4")
 [node name="EnemySpawnLocation" type="PathFollow3D" parent="EnemySpawnPath"]
 transform = Transform3D(0.00257774, 0, -0.999997, 0, 1, 0, 0.999997, 0, 0.00257774, -45.02, 0, -44.9621)
 
-[node name="UI" type="Control" parent="."]
+[node name="RestartUI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_g07ck")
+script = ExtResource("5_ul25v")
 
-[node name="Restart" type="ColorRect" parent="UI"]
+[node name="Restart" type="ColorRect" parent="RestartUI"]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.572549, 0.572549, 0.572549, 1)
 
-[node name="Label" type="Label" parent="UI/Restart"]
+[node name="Label" type="Label" parent="RestartUI/Restart"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -247,7 +228,22 @@ mesh = SubResource("BoxMesh_1gqg8")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ElevatorWalls/StaticBody3D4"]
 shape = SubResource("BoxShape3D_50mv0")
 
-[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
-[connection signal="timeout" from="WaveTimer/EnemySpawnTimer" to="." method="_on_EnemySpawnTimer_timeout"]
-[connection signal="dead" from="Player" to="." method="_on_player_dead"]
-[connection signal="dead" from="Player" to="UI" method="_on_player_dead"]
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 21.0
+one_shot = true
+autostart = true
+
+[node name="EnemySpawnTimer" type="Timer" parent="WaveTimer"]
+wait_time = 2.0
+autostart = true
+
+[node name="Platform" parent="." instance=ExtResource("3_biliw")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0n2k1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.276342, -4.20092e-08, 0.961059, -0.961059, -1.20793e-08, 0.276342, 0, -1, -4.37114e-08, 0, 50, 0)
+sky_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("4_7bjso")]

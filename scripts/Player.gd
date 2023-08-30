@@ -19,8 +19,14 @@ var acceleration = 5;
 @onready var current_weapon = "SamuraiSword" 
 @onready var pivot = $CameraPivot
 @onready var weapon_pivot = $SWORD_prototype
+@onready var playerHitBox = $PlayerHitBox 
+@onready var hitBoxTimer = $HitBoxTimer
 
 func _ready():
+	playerHitBox.connect("body_entered", Callable(self, "_on_playerHitBox_body_entered"))
+	playerHitBox.connect("body_exited", Callable(self, "_on_playerHitBox_body_exited"))
+	hitBoxTimer.connect("timeout", Callable(self, "_on_hitBoxTimer_timeout"))
+
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
@@ -30,11 +36,15 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
 		
-		weapon_pivot.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
-		weapon_pivot.rotation.x = clamp(weapon_pivot.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 		if Input.is_action_pressed("use_weapon"):
+			weapon_pivot.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
+			weapon_pivot.rotation.x = clamp(weapon_pivot.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+
 			weapon_pivot.rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
 			weapon_pivot.rotation.y = clamp(weapon_pivot.rotation.y, deg_to_rad(-90), deg_to_rad(90))
+		else:
+			pivot.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
+			pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 func _physics_process(delta):
 	var move_direction := Vector3.ZERO
@@ -77,17 +87,17 @@ func _physics_process(delta):
 		emit_signal("dead")
 
 
-func _on_PlayerHitBox_body_entered(body:Node):
+func _on_playerHitBox_body_entered(body:Node):
 	if body.is_in_group("enemies") and colliding_enemies.has(body) == false:
 		health -= get_node("../" + body.name).get("damage")
 		colliding_enemies.append(body)
 		$HitBoxTimer.start()
 
-func _on_PlayerHitBox_body_exited(body:Node):
+func _on_playerHitBox_body_exited(body:Node):
 		colliding_enemies.erase(body)
 		$HitBoxTimer.stop()
 
-func _on_HitBoxTimer_timeout():
+func _on_hitBoxTimer_timeout():
 	for enemy in colliding_enemies:
 		health -= get_node("../" + enemy.name).get("damage")
 

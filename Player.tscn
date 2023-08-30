@@ -71,8 +71,3 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 shape = SubResource("8")
 
 [node name="HitBoxTimer" type="Timer" parent="."]
-
-[connection signal="body_entered" from="SWORD_prototype/SamuraiSword/SamuraiSwordHitBox" to="SWORD_prototype/SamuraiSword" method="_on_SamuraiSwordHitBox_body_entered"]
-[connection signal="body_entered" from="PlayerHitBox" to="." method="_on_PlayerHitBox_body_entered"]
-[connection signal="body_exited" from="PlayerHitBox" to="." method="_on_PlayerHitBox_body_exited"]
-[connection signal="timeout" from="HitBoxTimer" to="." method="_on_HitBoxTimer_timeout"]
