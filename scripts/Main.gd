@@ -60,7 +60,6 @@ func _on_enemy_dead(body):
 
 
 
-
 func _on_player_dead():
 	enemySpawnTimer.stop()
 
@@ -75,7 +74,12 @@ func _on_wave_timer_timeout():
 
 func _on_platform_animation_finished(_anim_name):
 	var next_level_path = "res://level_" + str(current_level + 1) + ".tscn"
+
 	variables.current_level = current_level + 1
+	variables.weapon_rotation = player.weapon_pivot.rotation 
+	variables.pivot_rotation = player.pivot.rotation
+	variables.player_position = player.position
+
 	# SceneSwitcher.switch_scene(level_path)
 	get_tree().change_scene_to_file(next_level_path)
 	

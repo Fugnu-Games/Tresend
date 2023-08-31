@@ -16,6 +16,7 @@ var score = 0;
 var snap_vector = Vector3.DOWN;
 var acceleration = 5;
 
+@onready var variables = get_node("/root/Variables")
 @onready var current_weapon = "SamuraiSword" 
 @onready var pivot = $CameraPivot
 @onready var weapon_pivot = $SWORD_prototype
@@ -27,6 +28,11 @@ func _ready():
 	playerHitBox.connect("body_exited", Callable(self, "_on_playerHitBox_body_exited"))
 	hitBoxTimer.connect("timeout", Callable(self, "_on_hitBoxTimer_timeout"))
 
+	if variables.weapon_rotation != null:
+		weapon_pivot.rotation = variables.weapon_rotation	
+		pivot.rotation = variables.pivot_rotation	
+		self.position = variables.player_position
+
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
@@ -37,14 +43,14 @@ func _input(event):
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
 		
 		if Input.is_action_pressed("use_weapon"):
-			weapon_pivot.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
+			weapon_pivot.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity * 1.5))
 			weapon_pivot.rotation.x = clamp(weapon_pivot.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
-			weapon_pivot.rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
+			weapon_pivot.rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity * 1.5))
 			weapon_pivot.rotation.y = clamp(weapon_pivot.rotation.y, deg_to_rad(-90), deg_to_rad(90))
 		else:
 			pivot.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
-			pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+			pivot.rotation.x = clamp(pivot.rotation.x, deg_to_rad(-60), deg_to_rad(60))
 
 func _physics_process(delta):
 	var move_direction := Vector3.ZERO
