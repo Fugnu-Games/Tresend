@@ -44,7 +44,7 @@ func _on_enemySpawnTimer_timeout():
 	enemy.position.y = -50 * (current_level - 1)
 	enemy.position.y += 1.5
 
-	add_child(enemy)	
+	add_child(enemy)
 	enemy.connect("enemy_dead", Callable(self, "_on_enemy_dead"))
 	enemies.append(enemy)
 

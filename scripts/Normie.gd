@@ -2,6 +2,9 @@ extends CharacterBody3D
 
 signal enemy_dead(body)
 
+@export
+var deathParticleEffect : PackedScene
+
 @export var speed = 10
 @export var health = 30
 @export var damage = 20
@@ -33,4 +36,17 @@ func initialize(start_position, player_pos):
 
 func die():
 	emit_signal("enemy_dead", self)
+	var particlesScene = deathParticleEffect.instantiate()
+	particlesScene.position = self.position
+
+	get_node("../").add_child(particlesScene)
+
+	var particles = particlesScene.get_node("GPUParticles3D")
+	particles.emitting = true
+
+	# while particles.emitting:
+	# 	print_debug("HI mate")
+		# pass
+
+	# particles.queue_free()
 	queue_free()
