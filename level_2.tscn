@@ -8,10 +8,10 @@
 [ext_resource type="FontFile" uid="uid://c3akcqflmmpxk" path="res://assets/fonts/FiraCodeNerdFont-Medium.ttf" id="4_bbih8"]
 
 [sub_resource type="FontFile" id="FontFile_gcepb"]
+fallbacks = Array[Font]([ExtResource("4_bbih8")])
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
-fallbacks = Array[Font]([ExtResource("4_bbih8")])
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0

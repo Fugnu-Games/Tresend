@@ -23,11 +23,11 @@ gradient = SubResource("Gradient_1ngy3")
 lifetime_randomness = 1.0
 emission_shape = 2
 emission_sphere_radius = 1.0
-gravity = Vector3(0, -2, 0)
+angle_max = 360.0
 angular_velocity_max = 20.0
+gravity = Vector3(0, -2, 0)
 linear_accel_max = 1.0
 radial_accel_max = 2.0
-angle_max = 360.0
 color_ramp = SubResource("GradientTexture1D_k0het")
 
 [sub_resource type="QuadMesh" id="QuadMesh_qwjkm"]

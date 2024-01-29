@@ -15,10 +15,10 @@ _data = {
 point_count = 5
 
 [sub_resource type="FontFile" id="7"]
+fallbacks = Array[Font]([ExtResource("6_n3ib4")])
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
-fallbacks = Array[Font]([ExtResource("6_n3ib4")])
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
